@@ -61,7 +61,7 @@ The wrapper adds:
 
 	modelsDirs := parser.List("d", "models-dir", &argparse.Options{
 		Required: false,
-		Help:     `the path to the models directory  to AutoComplete '(load \"'. Can be repeated to specify more than one folder`,
+		Help:     `the path to the models directory  to AutoComplete the '(load ' prefix. Can be repeated to specify more than one folder`,
 	})
 
 	models := parser.List("l", "model-list", &argparse.Options{
