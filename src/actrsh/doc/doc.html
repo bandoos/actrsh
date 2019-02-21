@@ -1,0 +1,70 @@
+<h1 id="actrsh">actrsh</h1>
+<h3 id="what">What</h3>
+<p>actrsh is a small wrapper for the ACT-R standalone that aims at enhanching the user experience at the LISP shell for ACT-R.</p>
+<h3 id="why">Why</h3>
+<p>The ACT-R standalone offers an executable command that handles the startup bureacracy for ACT-R listener and environment. This is a bash script for *nix systems.</p>
+<p>Although this is really convenient and robust, unfortunately the shell (or rather REPL) offered by the default lisp coming with the standalone does not support lateral arrow navigation (to correct mistakes) nor vertical history scrolling (i.e. use arrows to navigate previous commands)</p>
+<p>The purpose of this package is enhanching the standalone with a richer REPL that allows for the above mentioned features as well as static and dynamic completion.</p>
+<h3 id="how">How</h3>
+<p>None of this would be possible without the great <a href="https://github.com/chzyer/readline"><code>readline</code></a> lib and</p>
+<p>the awesome Copy routine from golang stdlib <a href="https://golang.org/src/io/io.go?s=12784:12844#L353"><code>io.Copy</code></a></p>
+<p>The core functionality here is patching stdout and stderr of another command (ref. 3rd party command) to this command’s stdout. Concurrently, we parse (with autocompletion and history features) line by line <strong>this</strong> cmd stdin and write the lines to the 3rd party command</p>
+<h2 id="features">Features</h2>
+<p>By wrapping the ACT-R REPL with this utility we gain:</p>
+<ul>
+<li>history navigation via vertical arrow keys</li>
+<li>lateral movement with horizontal arrow keys</li>
+</ul>
+<p>if the -l flag is specified at least once:</p>
+<ul>
+<li>experiment function autocompletion.
+<ul>
+<li>the program fill try to extract all (defun &lt;name&gt; …) statements from the files specified by -l and build an autocompletion function for the <code>(</code> prefix that will scroll through available functions when tab is pressed.</li>
+</ul></li>
+</ul>
+<p>if the -d flag is specified at least once:</p>
+<ul>
+<li>model laod autocompletion.
+<ul>
+<li>the program will iterate files in the directories specified by -d occurences (non recursively) and build an autocompletion function for the <code>(load</code> prefix that will scroll through available <code>*.lisp</code> files when tab is pressed.</li>
+</ul></li>
+</ul>
+<h2 id="usage">Usage</h2>
+<pre><code>usage: actrsh_0.1 [-h|--help] -c|--command &quot;&lt;value&gt;&quot; [-d|--models-dir &quot;&lt;value&gt;&quot;
+                  [-d|--models-dir &quot;&lt;value&gt;&quot; ...]] -l|--model-list &quot;&lt;value&gt;&quot;
+                  [-l|--model-list &quot;&lt;value&gt;&quot; ...]
+
+                  (ACT-R shell)
+A wrapper for the ACT-R standalone lisp REPL written in golang.
+
+The wrapper adds:
+    - history 
+    - arrow navigation
+    - autocompletion
+
+Arguments:
+
+  -h  --help        Print help information
+  -c  --command     specify the 3rd party program to be executed in the
+                    background
+
+  -d  --models-dir  the path to the models directory  to AutoComplete &#39;(load
+                    \&quot;&#39;. Can be repeated to specify more than one folder.
+                    Default: ./
+
+  -l  --model-list  can be repeated to specify more than one model. Functions
+                    parsed from the given paths will be added to the
+                    autocompletion for the &quot;(&quot; prefix</code></pre>
+<h1 id="examples">Examples</h1>
+<ol type="1">
+<li>Start the act-r env. with the -c flag. Will decorate with history feature.</li>
+</ol>
+<pre><code>$ actrsh -c ~/ACT-R/run-act-r.command</code></pre>
+<ol start="2" type="1">
+<li>Start env. and specify 2 files for function autocompletion</li>
+</ol>
+<pre><code>$ actrsh -c ~/path/to/ACT-R/run-act-r.command -l ~/path/to/sart.lisp -l ~/path/to/subitize.lisp</code></pre>
+<ol start="3" type="1">
+<li>Start env. and specify 2 files for function autocompletion and directory for model loading autocompletion</li>
+</ol>
+<pre><code>$ actrsh -c ~/ACT-R/run-act-r.command -l ~/path/to/sart.lisp -l ~/pat/to/subitize.lisp -d ~/path/to/my-models/</code></pre>
