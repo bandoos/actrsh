@@ -1,5 +1,8 @@
 # actrsh
 
+**WORK IN PROGRESS!!**
+this repo has not reached a stable release yet :) 
+
 ### What 
 actrsh is a small wrapper for the ACT-R standalone that aims at enhanching the user experience at the LISP shell for ACT-R.
 
