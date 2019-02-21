@@ -68,6 +68,22 @@ Arguments:
 
 ```
 
+# Installing
+
+if you are using an x86\_64 with linux kernel or x86\_64 mac then you can directly install the compiled bundles in this repo's `bin/` folder.
+
+TODO instructions
+
+If you are running on an ARM platform or Windows then you'll have to build from source manually
+
+# Building 
+In order to compile the project you must have the `go` command installed.
+in your shell run `go version` to check that. If that fails the install go.
+
+TODO instructions
+
+
+
 # Examples
 
 1. Start the act-r env. with the -c flag. Will decorate with history feature.
