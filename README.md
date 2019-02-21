@@ -43,8 +43,8 @@ if the -d flag is specified at least once:
 ## Usage
 ```
 usage: actrsh_0.1 [-h|--help] -c|--command "<value>" [-d|--models-dir "<value>"
-                  [-d|--models-dir "<value>" ...]] -l|--model-list "<value>"
-                  [-l|--model-list "<value>" ...]
+                  [-d|--models-dir "<value>" ...]] [-l|--model-list "<value>"
+                  [-l|--model-list "<value>" ...]]
 
                   (ACT-R shell)
 A wrapper for the ACT-R standalone lisp REPL written in golang.
@@ -59,14 +59,13 @@ Arguments:
   -h  --help        Print help information
   -c  --command     specify the 3rd party program to be executed in the
                     background
-
-  -d  --models-dir  the path to the models directory  to AutoComplete '(load
-                    \"'. Can be repeated to specify more than one folder.
-                    Default: ./
-
+  -d  --models-dir  the path to the models directory  to AutoComplete the
+                    '(load ' prefix. Can be repeated to specify more than one
+                    folder
   -l  --model-list  can be repeated to specify more than one model. Functions
                     parsed from the given paths will be added to the
                     autocompletion for the "(" prefix
+
 ```
 
 # Examples
